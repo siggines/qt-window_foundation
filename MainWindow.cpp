@@ -3,6 +3,9 @@
 #include <QAction>
 #include <QMenuBar>
 #include <QStatusBar>
+#include <QTextStream>
+#include <QFile>
+#include <QFileDevice>
 
 MainWindow::MainWindow(QWidget * parent)
 	: QMainWindow(parent)
@@ -45,6 +48,15 @@ MainWindow::MainWindow(QWidget * parent)
 	// == STATUS BAR ==
 	QStatusBar * statusBar = new QStatusBar(this);
 	setStatusBar(statusBar);
+
+    QFile file0("/home/jacob/text");
+    if(file0.open(QFile::WriteOnly | QFile::Truncate))
+    {
+        QTextStream out(&file0);
+        out << "write to file";
+    }
+
+
 }
 
 // == PRIVATE SLOTS ==
