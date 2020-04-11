@@ -6,6 +6,10 @@
 #include <QTextStream>
 #include <QFile>
 #include <QFileDevice>
+#include <QInputDialog>
+#include <QString>
+#include <QLineEdit>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget * parent)
 	: QMainWindow(parent)
@@ -49,11 +53,14 @@ MainWindow::MainWindow(QWidget * parent)
 	QStatusBar * statusBar = new QStatusBar(this);
 	setStatusBar(statusBar);
 
-    QFile file0("/home/jacob/text");
-    if(file0.open(QFile::WriteOnly | QFile::Truncate))
-    {
-        QTextStream out(&file0);
-        out << "write to file";
+	bool search;
+    QString text = QInputDialog::getText(this,tr("QInputDialog::getText()"),tr("Search: "),QLineEdit::Normal,QDir::home().dirName(),&search);
+	if(search){
+    		QFile file0("/home/jacob/text");
+            file0.open(QFile::WriteOnly | QFile::Truncate);
+            QTextStream out(&file0);
+            out << text;
+
     }
 
 
